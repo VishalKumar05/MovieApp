@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:text="OR"
                     android:textColor="@color/solid_white"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="28dp"
                     android:padding="10dp"
                     android:background="@drawable/text_or_background"/>
 
