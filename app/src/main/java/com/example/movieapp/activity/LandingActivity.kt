@@ -3,7 +3,6 @@ package com.example.movieapp.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.core.view.get
 import com.example.movieapp.R
 import com.example.movieapp.fragment.LandingFragment
 import com.google.android.material.tabs.TabLayout
@@ -38,7 +37,7 @@ class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
             tabLayout.addTab(tabLayout.newTab().setText(tabs.key))
         }
         tabLayout.addOnTabSelectedListener(this)
-        MENU_ITEMS["HOME"].let { navigateToPage(it) }
+        MENU_ITEMS["HOME"].let { navigateToTab(it) }
     }
 
 
@@ -53,10 +52,10 @@ class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
     override fun onTabSelected(p0: TabLayout.Tab?) {
         Log.d(TAG,"Tab Selected")
         val tabId = MENU_ITEMS[p0?.text]
-        navigateToPage(tabId)
+        navigateToTab(tabId)
     }
 
-    private fun navigateToPage(tabId: String?) {
+    private fun navigateToTab(tabId: String?) {
         supportFragmentManager.beginTransaction().replace(R.id.pageContainer,LandingFragment(tabId!!)).commit()
     }
 
