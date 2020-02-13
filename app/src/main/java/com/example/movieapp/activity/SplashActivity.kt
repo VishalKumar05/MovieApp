@@ -1,10 +1,9 @@
-package com.example.movieapp.ui
+package com.example.movieapp.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.example.movieapp.MainActivity
 import com.example.movieapp.R
 import com.example.movieapp.utils.AppConstants
 

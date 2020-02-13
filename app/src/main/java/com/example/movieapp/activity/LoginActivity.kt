@@ -1,4 +1,4 @@
-package com.example.movieapp.ui
+package com.example.movieapp.activity
 
 import android.os.Bundle
 import android.util.Log

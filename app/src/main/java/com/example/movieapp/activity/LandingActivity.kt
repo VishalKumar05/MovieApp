@@ -1,0 +1,63 @@
+package com.example.movieapp.activity
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import androidx.core.view.get
+import com.example.movieapp.R
+import com.example.movieapp.fragment.LandingFragment
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_landing.*
+
+
+class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
+
+    companion object{
+        private val TAG = LandingActivity::class.java.simpleName
+    }
+
+    private val MENU_ITEMS = mapOf(
+        "HOME" to "1",
+        "MOVIES" to "2",
+        "SPORTS" to "3",
+        "NEWS" to "4"
+    )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_landing)
+
+        setup()
+    }
+
+    private fun setup() {
+        Log.d("Test","Inside setup")
+        setSupportActionBar(toolBar)
+
+        for (tabs in MENU_ITEMS){
+            tabLayout.addTab(tabLayout.newTab().setText(tabs.key))
+        }
+        tabLayout.addOnTabSelectedListener(this)
+        MENU_ITEMS["HOME"].let { navigateToPage(it) }
+    }
+
+
+    override fun onTabReselected(p0: TabLayout.Tab?) {
+        Log.d(TAG,"Tab Reselected")
+    }
+
+    override fun onTabUnselected(p0: TabLayout.Tab?) {
+        Log.d(TAG,"Tab Unselected")
+    }
+
+    override fun onTabSelected(p0: TabLayout.Tab?) {
+        Log.d(TAG,"Tab Selected")
+        val tabId = MENU_ITEMS[p0?.text]
+        navigateToPage(tabId)
+    }
+
+    private fun navigateToPage(tabId: String?) {
+        supportFragmentManager.beginTransaction().replace(R.id.pageContainer,LandingFragment(tabId!!)).commit()
+    }
+
+}
