@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.movieapp.MainActivity
 import com.example.movieapp.R
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -59,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
             val pieces = credential.split(":")
             if (pieces[0] == emailAddress && pieces[1] == password) {
                 isLogin = true
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, LandingActivity::class.java)
                 startActivity(intent)
             }
         }

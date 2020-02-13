@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -20,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -39,6 +45,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'androidx.core:core-ktx:1.2.0'
 
+    /* Firebase lib */
     implementation 'com.google.firebase:firebase-auth:18.0.0'
     implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
@@ -46,12 +53,17 @@ dependencies {
     /*Retrofit lib*/
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
 
     /* LiveData lib*/
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
+    // Data Binding
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    kapt 'com.android.databinding:compiler:3.1.4'
+
+    /* RX java */
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
     implementation "io.reactivex.rxjava2:rxjava:2.0.1"
 
