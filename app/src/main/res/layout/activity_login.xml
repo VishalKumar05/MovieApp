@@ -39,7 +39,7 @@
                 android:background="@drawable/email_pass_background"/>
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/pass"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:textColorHint="@color/colorPrimary"
