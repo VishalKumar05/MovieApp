@@ -43,7 +43,9 @@
             android:fontFamily="sans-serif-black"
             android:textColor="#000000"
             android:textSize="15dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/description"
@@ -56,7 +58,9 @@
             android:layout_marginRight="10dp"
             android:fontFamily="sans-serif"
             android:textColor="#000000"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:maxLines="3"
+            android:ellipsize="end"/>
 
     </RelativeLayout>
 

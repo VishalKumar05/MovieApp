@@ -34,7 +34,7 @@ class LandingViewModel: ViewModel() {
                 .subscribe({
                     data.value = it
                 },{
-                    Log.d("Test",it.localizedMessage)
+                    Log.d(TAG,it.localizedMessage)
                 })
             )
         }

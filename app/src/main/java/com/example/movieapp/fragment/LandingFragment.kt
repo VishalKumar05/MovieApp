@@ -22,37 +22,44 @@ class LandingFragment(private val tabId:String) : Fragment() {
         Log.d("Test","Tab Id: $tabId")
     }
 
-    //private var binding: ViewDataBinding? = null
-    //private lateinit var mLandingViewModel: LandingViewModel
+    private var binding: ViewDataBinding? = null
+    private lateinit var mLandingViewModel: LandingViewModel
     private lateinit var mAdapter:MovieAdapter
+    private var movieData:List<Collections> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(com.example.movieapp.R.layout.fragment_landing,container,false)
         //binding = activity?.let { DataBindingUtil.setContentView(it,R.layout.fragment_landing) }
-        //mLandingViewModel = ViewModelProviders.of(requireActivity()).get(LandingViewModel::class.java)
-        //mLandingViewModel.fetchLandingPageData(tabId)
-        //observeData()
-
-        setup()
-
+        mLandingViewModel = ViewModelProviders.of(requireActivity()).get(LandingViewModel::class.java)
+        mLandingViewModel.fetchLandingPageData(tabId)
+        observeData()
+        //setup()
         return view
     }
 
-    /* private fun observeData() {
+     private fun observeData() {
          Log.d("Test","Inside observeData")
          mLandingViewModel.getData().observe(this, Observer<Collections> { it ->
-             Log.d("Test","Data: $it")
+             Log.d("Test","Data: ${it.results[0].title}")
+             movieData = listOf(it as Collections)
+             Log.d("Test","Collection: ${movieData[0].results.size}")
+             var mAdapter = activity?.let { it -> MovieAdapter(it,movieData) }
+             recyclerView.apply {
+                 layoutManager = LinearLayoutManager(activity)
+                 adapter = mAdapter
+             }
          })
-     }*/
+     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
 
 
-    private fun setup() {
+    /*private fun setup() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+*/
 
 }
 
