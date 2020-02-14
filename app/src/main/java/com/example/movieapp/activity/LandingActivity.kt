@@ -16,10 +16,11 @@ class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
     }
 
     private val MENU_ITEMS = mapOf(
-        "HOME" to "1",
-        "MOVIES" to "2",
-        "SPORTS" to "3",
-        "NEWS" to "4"
+        "HOME" to "now_playing",
+        "POPULAR" to "popular",
+        "TOP RATED" to "top_rated",
+        "UPCOMING" to "upcoming",
+        "LATEST" to "latest"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +38,7 @@ class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
             tabLayout.addTab(tabLayout.newTab().setText(tabs.key))
         }
         tabLayout.addOnTabSelectedListener(this)
-        MENU_ITEMS["HOME"].let { navigateToTab(it) }
+        navigateToTab(MENU_ITEMS["HOME"])
     }
 
 

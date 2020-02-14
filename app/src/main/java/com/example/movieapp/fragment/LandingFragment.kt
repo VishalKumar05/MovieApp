@@ -5,9 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.example.movieapp.R
-import kotlinx.android.synthetic.main.fragment_landing.view.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.movieapp.adapter.MovieAdapter
+import com.example.movieapp.model.Collections
+import com.example.movieapp.viewModel.LandingViewModel
+import kotlinx.android.synthetic.main.fragment_landing.*
+
 
 class LandingFragment(private val tabId:String) : Fragment() {
 
@@ -15,10 +22,37 @@ class LandingFragment(private val tabId:String) : Fragment() {
         Log.d("Test","Tab Id: $tabId")
     }
 
+    //private var binding: ViewDataBinding? = null
+    //private lateinit var mLandingViewModel: LandingViewModel
+    private lateinit var mAdapter:MovieAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_landing,container,false)
-        view.tv.text = "Fragment: $tabId"
+        val view = inflater.inflate(com.example.movieapp.R.layout.fragment_landing,container,false)
+        //binding = activity?.let { DataBindingUtil.setContentView(it,R.layout.fragment_landing) }
+        //mLandingViewModel = ViewModelProviders.of(requireActivity()).get(LandingViewModel::class.java)
+        //mLandingViewModel.fetchLandingPageData(tabId)
+        //observeData()
+
+        setup()
+
         return view
     }
 
+    /* private fun observeData() {
+         Log.d("Test","Inside observeData")
+         mLandingViewModel.getData().observe(this, Observer<Collections> { it ->
+             Log.d("Test","Data: $it")
+         })
+     }*/
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+    }
+
+
+    private fun setup() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
+
