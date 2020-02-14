@@ -28,10 +28,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        setup()
+    }
 
-        login_button.setOnClickListener {
-            validateFields()
-        }
+    private fun setup() {
+        login_button.setOnClickListener { validateFields() }
+        google_signIn_button.setOnClickListener { performGoogleSignIn() }
     }
 
     private fun validateFields() {
@@ -69,6 +71,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun performGoogleSignIn() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+    
     private fun showAlertDialog(msg: String) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Error")
