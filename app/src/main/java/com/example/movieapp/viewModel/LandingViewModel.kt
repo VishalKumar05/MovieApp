@@ -26,7 +26,7 @@ class LandingViewModel: ViewModel() {
     }
 
      fun fetchLandingPageData(itemId: String) {
-         Log.d("Test","Item Id: $itemId")
+         Log.d(TAG,"Item Id: $itemId")
         disposable.add(
             apiService.getLandingCollections(itemId)
                 .subscribeOn(Schedulers.io())
