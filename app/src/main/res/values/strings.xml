@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MovieApp</string>
+    <string name="search">Search</string>
+    <string name="exit">Exit</string>
+    <string name="signout_msg">Are you sure you want to exit?</string>
+    <string name="enter_data">Please enter data</string>
+    <string name="email_empty">Email shouldn\'t be empty</string>
+    <string name="password_empty">Password shouldn\'t be empty</string>
+    <string name="password_short">Password is too short</string>
+    <string name="invalid_email_pass">Invalid Email id or Password</string>
     <!--<string name="default_web_client_id">1086598430255-h6f7koiiqj9mrns0junf9n99ekjsuf70.apps.googleusercontent.com</string>-->
 </resources>

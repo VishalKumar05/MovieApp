@@ -8,12 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movieapp.R
+import com.example.movieapp.utils.AppConstants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -27,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
     var emailAddress:String? = null
     var password:String? = null
     var isLogin = false
+    val delay = AppConstants.ALERT_DELAY
+
     //declare_auth
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -34,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     companion object{
         private val TAG = LoginActivity::class.java.simpleName
         private const val RC_SIGN_IN = 9001
+        //Dummy login credentials
         private val DUMMY_CREDENTIALS = arrayOf(
             "foo@example.com:hello",
             "admin:admin",
@@ -44,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        //Initializing firebase ap
         FirebaseApp.initializeApp(this)
         setup()
     }
@@ -68,15 +72,15 @@ class LoginActivity : AppCompatActivity() {
         password = pass.text.toString()
 
         if (TextUtils.isEmpty(emailAddress) && TextUtils.isEmpty(password)){
-            showAlertDialog("Please enter data")
+            showAlertDialog(getString(R.string.enter_data))
         }else if (TextUtils.isEmpty(emailAddress)){
-            showAlertDialog("Email shouldn't be empty")
+            showAlertDialog(getString(R.string.email_empty))
             //pass.text.clear()
         }else if (TextUtils.isEmpty(password)){
-            showAlertDialog("Password shouldn't be empty")
+            showAlertDialog(getString(R.string.password_empty))
             //email_address.text.clear()
         }else if (password!!.length < 5){
-            showAlertDialog("Password is too short")
+            showAlertDialog(getString(R.string.password_short))
         }else{
             performLogin()
         }
@@ -92,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         if (!isLogin) {
-            showAlertDialog("Invalid Email id or Password")
+            showAlertDialog(getString(R.string.invalid_email_pass))
             //email_address.text.clear()
             //pass.text.clear()
         }
@@ -109,6 +113,12 @@ class LoginActivity : AppCompatActivity() {
     private fun performGoogleSignIn() {
         Toast.makeText(this,"Google SignIn Button Clicked",Toast.LENGTH_SHORT).show()
         signIn()
+    }
+
+    // start google signIn
+    private fun signIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,8 +141,7 @@ class LoginActivity : AppCompatActivity() {
     // exchange it for a Firebase credential,
     // and authenticate with Firebase using the Firebase credential
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + account.id!!)
-        //showProgressBar()
+        Log.d(TAG, "FirebaseAuth with Google:" + account.id!!)
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
@@ -149,7 +158,6 @@ class LoginActivity : AppCompatActivity() {
                     showAlertDialog("Authentication Failed")
                     updateUI(null)
                 }
-                //hideProgressBar()
             }
     }
 
@@ -158,12 +166,6 @@ class LoginActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()
-    }
-
-    // start google signIn
-    private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     private fun showAlertDialog(msg: String) {
@@ -185,16 +187,15 @@ class LoginActivity : AppCompatActivity() {
                     pass.text.clear()
                 }
             }
-        }, 2000) // the timer will count 2 seconds....
+        }, delay)
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-
-    }
+    private fun updateUI(currentUser: FirebaseUser?) {}
 
     override fun onRestart() {
         super.onRestart()
         email_address.text.clear()
         pass.text.clear()
     }
+
 }

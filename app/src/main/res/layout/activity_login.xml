@@ -9,13 +9,13 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:elevation="7dp"
-        app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="#FFFFFF">
+        android:layout_height="@dimen/login_card_height"
+        android:layout_marginTop="@dimen/login_card_margin_top"
+        android:layout_marginEnd="@dimen/login_card_margin_end"
+        android:layout_marginStart="@dimen/login_card_margin_start"
+        android:elevation="@dimen/login_card_elevation"
+        app:cardCornerRadius="@dimen/login_card_radius"
+        app:cardBackgroundColor="@color/solid_white">
 
         <LinearLayout
             android:layout_width="match_parent"

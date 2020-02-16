@@ -2,20 +2,20 @@
 <LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#EEEEEE"
+    android:background="@color/solid_white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <androidx.cardview.widget.CardView
     android:id="@+id/cardView"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="@dimen/landing_card_height"
     android:layout_marginTop="5dp"
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginBottom="5dp"
-    android:elevation="7dp"
-    app:cardCornerRadius="5dp">
+    android:elevation="@dimen/landing_card_elevation"
+    app:cardCornerRadius="@dimen/landing_card_radius">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
 
         <ImageView
             android:id="@+id/poster"
-            android:layout_width="120dp"
+            android:layout_width="@dimen/landing_poster_width"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:cropToPadding="true"
@@ -41,8 +41,8 @@
             android:layout_marginTop="8dp"
             android:paddingRight="10dp"
             android:fontFamily="sans-serif-black"
-            android:textColor="#000000"
-            android:textSize="15dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/title_text_size"
             android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"/>
@@ -57,8 +57,8 @@
             android:layout_marginTop="8dp"
             android:paddingRight="12dp"
             android:fontFamily="sans-serif"
-            android:textColor="#000000"
-            android:textSize="13dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/description_text_size"
             android:maxLines="3"
             android:ellipsize="end"/>
 
