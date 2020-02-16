@@ -18,10 +18,6 @@ import kotlinx.android.synthetic.main.fragment_landing.*
 
 class LandingFragment(private val tabId:String) : Fragment() {
 
-    init {
-        Log.d("Test","Tab Id: $tabId")
-    }
-
     private var binding: ViewDataBinding? = null
     private lateinit var mLandingViewModel: LandingViewModel
     private lateinit var mAdapter:MovieAdapter
@@ -33,33 +29,24 @@ class LandingFragment(private val tabId:String) : Fragment() {
         mLandingViewModel = ViewModelProviders.of(requireActivity()).get(LandingViewModel::class.java)
         mLandingViewModel.fetchLandingPageData(tabId)
         observeData()
-        //setup()
         return view
     }
 
      private fun observeData() {
-         Log.d("Test","Inside observeData")
          mLandingViewModel.getData().observe(this, Observer<Collections> { it ->
-             Log.d("Test","Data: ${it.results[0].title}")
+             progressBar.visibility = View.VISIBLE
              movieData = listOf(it as Collections)
-             Log.d("Test","Collection: ${movieData[0].results.size}")
-             var mAdapter = activity?.let { it -> MovieAdapter(it,movieData) }
+             val mAdapter = activity?.let { it -> MovieAdapter(it,movieData) }
              recyclerView.apply {
                  layoutManager = LinearLayoutManager(activity)
                  adapter = mAdapter
              }
+             progressBar.visibility = View.GONE
          })
      }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
     }
-
-
-    /*private fun setup() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-*/
-
 }
 

@@ -1,7 +1,6 @@
 package com.example.movieapp.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.model.Collections
-import kotlinx.android.synthetic.main.menu_content.view.*
 
 class MovieAdapter(private val context: Context, private var dataList: List<Collections>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
@@ -22,14 +20,12 @@ class MovieAdapter(private val context: Context, private var dataList: List<Coll
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return dataList[0].results.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(context,dataList.get(0).results,position)
-        //holder.itemView.title.text = dataList.get(1).results[position].title
+        holder.bindItems(context, dataList[0].results,position)
     }
-
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -38,17 +34,10 @@ class MovieAdapter(private val context: Context, private var dataList: List<Coll
         private var description = itemView.findViewById<TextView>(R.id.description)
 
         fun bindItems(context: Context, collections: MutableList<Collections.Result>, position: Int) {
-            //title.text = collections.get(position).title
-            //description.text = collections[0].results[position].overview
-            //Glide.with(context).load(collections[0].results[position].posterPath).placeholder(R.drawable.placeholder).into(poster)
-            Log.d("Size","Size: ${collections.size}")
-            for (item in 0 until collections.size){
-                title.text = collections[item].title
-                description.text = collections[item].overview
-                //Glide.with(context).load(item.posterPath).placeholder(R.drawable.placeholder).into(poster)
-            }
+            title.text = collections[position].title
+            description.text = collections[position].overview
+            val imageUrl = "https://image.tmdb.org/t/p/original/${collections[position].posterPath}"
+            Glide.with(context).load(imageUrl).placeholder(R.drawable.placeholder).into(poster)
         }
-
     }
-
 }
