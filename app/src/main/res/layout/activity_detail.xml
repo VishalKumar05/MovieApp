@@ -37,7 +37,7 @@
                 android:id="@+id/poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="center"/>
+                android:scaleType="centerCrop"/>
 
             <ImageButton
                 android:id="@+id/playButton"

@@ -1,6 +1,8 @@
 package com.example.movieapp.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -10,23 +12,29 @@ import com.example.movieapp.model.Details
 import com.example.movieapp.viewModel.DetailsViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(),View.OnClickListener {
 
     private lateinit var mDetailsViewModel:DetailsViewModel
+    private var itemId:String? = ""
+    private var itemTitle:String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
+        itemId = intent.getStringExtra("id")
+        itemTitle = intent.getStringExtra("title")
         setup()
         observeData()
     }
 
     private fun setup() {
         mDetailsViewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
-        mDetailsViewModel.fetchDetailsPageData("496243")
+        itemId?.let { mDetailsViewModel.fetchDetailsPageData(it) }
         toolBar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolBar.setNavigationOnClickListener { onBackPressed() }
+        toolBar.title = itemTitle
+
+        poster.setOnClickListener(this)
     }
 
     private fun observeData() {
@@ -39,6 +47,15 @@ class DetailActivity : AppCompatActivity() {
             val imageUrl = "https://image.tmdb.org/t/p/original/${it.posterPath}"
             Glide.with(this).load(imageUrl).placeholder(R.drawable.placeholder).into(poster)
         })
+    }
+
+    override fun onClick(view: View?) {
+        when (view?.id ) {
+            R.id.poster -> {
+                val intent = Intent(this, PlayerActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
 }

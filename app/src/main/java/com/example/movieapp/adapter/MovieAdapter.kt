@@ -12,12 +12,12 @@ import com.example.movieapp.R
 import com.example.movieapp.model.Collections
 
 
-class MovieAdapter(private val context: Context, private var dataList: List<Collections>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(private val context: Context, private var dataList: List<Collections>, private val listener: OnClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.landing_content,parent,false)
-        return ViewHolder(view)
+        return ViewHolder(view,listener)
     }
 
     override fun getItemCount(): Int {
@@ -28,8 +28,9 @@ class MovieAdapter(private val context: Context, private var dataList: List<Coll
         holder.bindItems(context, dataList[0].results,position)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View,listener: OnClickListener) : RecyclerView.ViewHolder(itemView),View.OnClickListener{
 
+        var onClickListener:OnClickListener = listener
         private var poster = itemView.findViewById<ImageView>(R.id.poster)
         private var title = itemView.findViewById<TextView>(R.id.title)
         private var description = itemView.findViewById<TextView>(R.id.description)
@@ -38,8 +39,18 @@ class MovieAdapter(private val context: Context, private var dataList: List<Coll
             title.text = collections[position].title
             description.text = collections[position].overview
             val imageUrl = "https://image.tmdb.org/t/p/original/${collections[position].posterPath}"
+
             Glide.with(context).load(imageUrl).placeholder(R.drawable.placeholder).into(poster)
+            itemView.setOnClickListener(this)
         }
+
+        override fun onClick(view: View?) {
+            onClickListener.onItemClick(adapterPosition)
+        }
+    }
+
+    interface OnClickListener{
+        public fun onItemClick(position:Int)
     }
 
 }
