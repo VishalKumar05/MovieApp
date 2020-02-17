@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.model.Collections
 
+
 class MovieAdapter(private val context: Context, private var dataList: List<Collections>) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,4 +41,5 @@ class MovieAdapter(private val context: Context, private var dataList: List<Coll
             Glide.with(context).load(imageUrl).placeholder(R.drawable.placeholder).into(poster)
         }
     }
+
 }
