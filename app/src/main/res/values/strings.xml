@@ -8,5 +8,9 @@
     <string name="password_empty">Password shouldn\'t be empty</string>
     <string name="password_short">Password is too short</string>
     <string name="invalid_email_pass">Invalid Email id or Password</string>
+    <string name="search_hint">Search Movie</string>
+    <string name="search_message">Search for movie</string>
+    <string name="minimum_search_characters">Please enter atleast 3 letters to search</string>
+    <string name="no_data">Sorry, no data available</string>
     <!--<string name="default_web_client_id">1086598430255-h6f7koiiqj9mrns0junf9n99ekjsuf70.apps.googleusercontent.com</string>-->
 </resources>

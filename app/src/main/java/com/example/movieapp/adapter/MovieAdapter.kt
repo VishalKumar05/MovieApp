@@ -39,7 +39,6 @@ class MovieAdapter(private val context: Context, private var dataList: List<Coll
             title.text = collections[position].title
             description.text = collections[position].overview
             val imageUrl = "https://image.tmdb.org/t/p/original/${collections[position].posterPath}"
-
             Glide.with(context).load(imageUrl).placeholder(R.drawable.placeholder).into(poster)
             itemView.setOnClickListener(this)
         }
