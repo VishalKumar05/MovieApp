@@ -57,12 +57,13 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener,SearchAdapter.On
 
             override fun afterTextChanged(s: Editable?) {
                 searchText = s.toString().toLowerCase()
-                if (searchText!!.length in 1..2){
+                if (searchText!!.length==1){
                     text_message.visibility = View.VISIBLE
                     text_message.text = getString(R.string.minimum_search_characters)
                 }
 
-                if (searchText!!.isNotEmpty() && searchText!!.length >= 3){
+                if (searchText!!.isNotEmpty() && searchText!!.length >= 2){
+                    progressBar.visibility = View.VISIBLE
                     text_message.visibility = View.INVISIBLE
                     timer = Timer()
                     timer?.schedule(object : TimerTask() {
@@ -70,7 +71,6 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener,SearchAdapter.On
                             mSearchViewModel.fetchSearchPageData("320e458289dc0e7812b9b2236230c67e",searchText!!)
                         }
                     }, delay)
-
                 }else if (recyclerView.adapter != null){
                     (recyclerView.adapter as SearchAdapter).clearAdapter()
                 }
@@ -88,8 +88,10 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener,SearchAdapter.On
                 filteredData = listOf(t as Search)
                 mAdapter = SearchAdapter(this, filteredData,this)
                 recyclerView.adapter = mAdapter
+                progressBar.visibility = View.GONE
             }else{
                 text_message.text = getString(R.string.no_data)
+                progressBar.visibility = View.GONE
                 Toast.makeText(this,"Sorry, no data available",Toast.LENGTH_SHORT).show()
             }
         })
