@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.movieapp.R
 import com.example.movieapp.fragment.LandingFragment
+import com.example.movieapp.utils.SharedPreference
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_landing.*
 class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
 
     private lateinit var googleSignInClient: GoogleSignInClient
+    private val sharedPreferences = SharedPreference()
 
     companion object{
         private val TAG = LandingActivity::class.java.simpleName
@@ -91,6 +93,7 @@ class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
         }
     }
 
+    //method will show alert dialog
     private fun showAlertDialog(msg: String) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Sign out")
@@ -100,11 +103,11 @@ class LandingActivity : AppCompatActivity(),TabLayout.OnTabSelectedListener {
             Log.d(TAG,"Proceed clicked")
             FirebaseAuth.getInstance().signOut()
             googleSignInClient.signOut().addOnCompleteListener {
+                sharedPreferences.setValue(this,0)
                 val intent = Intent(this,LoginActivity::class.java)
                 startActivity(intent)
             }
         })
-
         builder.setNegativeButton("Cancel",DialogInterface.OnClickListener { dialog, i -> dialog.cancel() })
 
         val dialog: AlertDialog = builder.create()

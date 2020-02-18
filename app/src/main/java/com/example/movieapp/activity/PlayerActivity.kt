@@ -33,7 +33,6 @@ class PlayerActivity : AppCompatActivity(), MediaControllerEvents, VideoPlayerEv
         const val videoUrl:String = "https://html5demos.com/assets/dizzy.mp4"
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)

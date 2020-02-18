@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movieapp.R
 import com.example.movieapp.utils.AppConstants
+import com.example.movieapp.utils.SharedPreference
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -27,7 +28,8 @@ class LoginActivity : AppCompatActivity() {
     var emailAddress:String? = null
     var password:String? = null
     var isLogin = false
-    val delay = AppConstants.ALERT_DELAY
+    private val delay = AppConstants.ALERT_DELAY
+    private val sharedPreferences = SharedPreference()
 
     //declare_auth
     private lateinit var auth: FirebaseAuth
@@ -110,6 +112,7 @@ class LoginActivity : AppCompatActivity() {
         updateUI(currentUser)
     }
 
+    //method will be called when Google sign in button will be clicked
     private fun performGoogleSignIn() {
         Toast.makeText(this,"Google SignIn Button Clicked",Toast.LENGTH_SHORT).show()
         signIn()
@@ -150,17 +153,20 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "SignIn With Credential:success")
                     val user = auth.currentUser
                     updateUI(user)
+                    sharedPreferences.setValue(this,1)
                     gotoLandingActivity()
                     Toast.makeText(applicationContext,"Google Login Successfull",Toast.LENGTH_SHORT).show()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.d(TAG, "SignIn With Credential:failure", task.exception)
                     showAlertDialog("Authentication Failed")
+                    sharedPreferences.setValue(this,0)
                     updateUI(null)
                 }
             }
     }
 
+    //method to redirect to LandingActivity
     private fun gotoLandingActivity() {
         val intent = Intent(this,LandingActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -168,6 +174,7 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    //method to show Alert dialog
     private fun showAlertDialog(msg: String) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Error")

@@ -50,6 +50,7 @@
                 android:paddingRight="15dp"
                 android:hint="Password"
                 android:singleLine="true"
+                android:inputType="textPassword"
                 android:drawableRight="@drawable/ic_lock"
                 android:background="@drawable/email_pass_background"/>
 
@@ -60,7 +61,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:textColor="#ffffff"
+                android:textColor="@color/solid_white"
                 android:textFontWeight="5"
                 android:text="REGISTER"
                 android:background="@drawable/register_button_background"/>

@@ -35,6 +35,7 @@ class DetailActivity : AppCompatActivity(),View.OnClickListener {
         toolBar.title = itemTitle
 
         poster.setOnClickListener(this)
+        playButton.setOnClickListener(this)
     }
 
     private fun observeData() {
@@ -52,6 +53,10 @@ class DetailActivity : AppCompatActivity(),View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id ) {
             R.id.poster -> {
+                val intent = Intent(this, PlayerActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.playButton -> {
                 val intent = Intent(this, PlayerActivity::class.java)
                 startActivity(intent)
             }

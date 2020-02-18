@@ -26,7 +26,7 @@
         <FrameLayout
             android:id="@+id/poster_container_layout"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="@dimen/poster_container_height"
             android:layout_marginTop="56dp"
             android:background="#909090"
             android:clickable="true"

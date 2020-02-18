@@ -10,7 +10,7 @@
     <com.ltts.lttsplayer.LTTSPlayerContainer
         android:id="@+id/playerContainer"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="@dimen/player_container_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
