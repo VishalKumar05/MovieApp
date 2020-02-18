@@ -104,7 +104,6 @@
             android:layout_marginRight="12dp"
             android:maxLines="3"
             android:ellipsize="end"
-            android:text="@{viewModel.detailsData.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
