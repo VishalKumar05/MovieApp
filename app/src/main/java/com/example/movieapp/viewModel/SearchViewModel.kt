@@ -26,7 +26,6 @@ class SearchViewModel:ViewModel() {
     }
 
     fun fetchSearchPageData(key:String,query: String){
-        Log.d(TAG,"Query text: $query")
         disposable.add(
             apiService.getSearchCollections(key,query)
                 .subscribeOn(Schedulers.io())

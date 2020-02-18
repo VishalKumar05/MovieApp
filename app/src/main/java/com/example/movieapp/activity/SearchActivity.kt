@@ -1,5 +1,6 @@
 package com.example.movieapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,13 +19,14 @@ import com.example.movieapp.viewModel.SearchViewModel
 import kotlinx.android.synthetic.main.activity_search.*
 import java.util.*
 
-class SearchActivity : AppCompatActivity(),View.OnClickListener {
+class SearchActivity : AppCompatActivity(),View.OnClickListener,SearchAdapter.OnClickListener {
 
     private lateinit var mSearchViewModel:SearchViewModel
     private var delay:Long = AppConstants.SEARCH_DELAY
     private var timer:Timer? = null
     private var searchText:String? = null
     private lateinit var mAdapter:SearchAdapter
+    private var filteredData:List<Search> = mutableListOf()
 
     companion object{
         private val TAG = SearchActivity::class.java.simpleName
@@ -38,7 +40,6 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener {
 
     private fun setup() {
         mSearchViewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
-        //mSearchViewModel.fetchSearchPageData("p")
         recyclerView.layoutManager = GridLayoutManager(this,2)
 
         //Code to listen for changed text during search
@@ -56,7 +57,6 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener {
 
             override fun afterTextChanged(s: Editable?) {
                 searchText = s.toString().toLowerCase()
-
                 if (searchText!!.length in 1..2){
                     text_message.visibility = View.VISIBLE
                     text_message.text = getString(R.string.minimum_search_characters)
@@ -67,7 +67,6 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener {
                     timer = Timer()
                     timer?.schedule(object : TimerTask() {
                         override fun run() {
-                            Log.d("Text","Text: $searchText")
                             mSearchViewModel.fetchSearchPageData("320e458289dc0e7812b9b2236230c67e",searchText!!)
                         }
                     }, delay)
@@ -75,24 +74,20 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener {
                 }else if (recyclerView.adapter != null){
                     (recyclerView.adapter as SearchAdapter).clearAdapter()
                 }
-
-                observeData()
-
-                back_button.setOnClickListener(this@SearchActivity)
             }
 
             override fun beforeTextChanged(charSequence: CharSequence?, start: Int, count: Int, after: Int) {}
         })
+        observeData()
+        back_button.setOnClickListener(this@SearchActivity)
     }
 
     private fun observeData() {
         mSearchViewModel.getData().observe(this@SearchActivity, Observer<Search> { t ->
             if (t != null) {
-                Log.d("Item","Item: ${t.totalPages}")
-                mAdapter = SearchAdapter(this, listOf(t as Search))
+                filteredData = listOf(t as Search)
+                mAdapter = SearchAdapter(this, filteredData,this)
                 recyclerView.adapter = mAdapter
-
-
             }else{
                 text_message.text = getString(R.string.no_data)
                 Toast.makeText(this,"Sorry, no data available",Toast.LENGTH_SHORT).show()
@@ -104,5 +99,15 @@ class SearchActivity : AppCompatActivity(),View.OnClickListener {
         when(v?.id){
             R.id.back_button -> onBackPressed()
         }
+    }
+
+    override fun onItemClick(position: Int) {
+        Log.d(TAG,"Position: $position")
+        val itemId = filteredData[0].results[position].id
+        val title:String = filteredData[0].results[position].title
+        val intent = Intent(this,DetailActivity::class.java)
+        intent.putExtra("id",itemId.toString())
+        intent.putExtra("title",title)
+        startActivity(intent)
     }
 }
